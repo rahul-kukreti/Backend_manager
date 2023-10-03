@@ -30,6 +30,15 @@ public class ConfigReader {
 		return prop.getProperty("password");
 	}
 	
+	
+	public String getlogin1() {
+		return prop.getProperty("username1");
+	}
+
+	public String getpassword1() {
+		return prop.getProperty("password1");
+	}
+	
 	public String getlogin_wrong() {
 		return prop.getProperty("wrong_username");
 	}

@@ -29,6 +29,12 @@ public class CommonFunctions extends BaseClass {
 	SoftAssert softAssert = new SoftAssert();
 
 	static SoftAssert objSoftAssert = new SoftAssert();
+	
+	//Login details one
+	By username = By.xpath("//mat-label[contains(text(),'Enter your email')]//ancestor::mat-form-field//following-sibling::input[@formcontrolname='identifier']");
+	By password = By.xpath("//mat-label[contains(text(),'Password')]//ancestor::mat-form-field//following-sibling::input[@formcontrolname='password']");
+	By login_btn = By.xpath("//button//span[contains(text(),'Login')]");
+	By approver_placeholder = By.xpath("//mat-label[text()='nbrOfApprovesToApplyAction']//ancestor::mat-form-field//following-sibling::input");
 
 	public void assertElementsExistence(WebDriver driver, By xpath) {
 		List<WebElement> elements = driver.findElements(xpath);
@@ -89,6 +95,12 @@ public class CommonFunctions extends BaseClass {
 		catch(TimeoutException e) {
 			throw new TimeoutException("element not found", e);
 		}
+	}
+	
+	public void click_dropdown(WebDriver driver, String name, String value) {
+		this.Explicitywait(driver, By.xpath("//mat-select//span[contains(text(),'"+name+"')]"));
+		this.Click(driver, By.xpath("//mat-select//span[contains(text(),'"+name+"')]"));
+		this.Click(driver, By.xpath("//div[@role='listbox']//child::mat-option//span[contains(text(),'"+value+"')]"));
 	}
 
 	public void select_menu(WebDriver driver, String menu) {
@@ -664,6 +676,91 @@ public class CommonFunctions extends BaseClass {
 		this.Click_btn(driver, "Create");
 		
 	}
+	
+	
+	     public void login_User1(WebDriver driver) {
+			commFunc.sendKeys(driver, username, (conf.getlogin()));
+			commFunc.sendKeys(driver, password, (conf.getpassword()));
+			commFunc.Explicitywait(driver, login_btn);
+			commFunc.Click(driver, login_btn);
+	}
+	     
+	     public void login_User2(WebDriver driver) {
+				commFunc.sendKeys(driver, username, (conf.getlogin1()));
+				commFunc.sendKeys(driver, password, (conf.getpassword1()));
+				commFunc.Explicitywait(driver, login_btn);
+				commFunc.Click(driver, login_btn);
+		}
+	     
+	     
+	     public void logout(WebDriver driver) {
+	    	 this.Explicitywait(driver, By.xpath("//berd-sidebar//mat-toolbar//button//mat-icon[contains(text(),'person')]"));
+	    	 this.Click(driver,By.xpath("//berd-sidebar//mat-toolbar//button//mat-icon[contains(text(),'person')]"));
+	    	 this.Click_btn(driver,"Logout");
+	     }
+	     
+	     public void approver_module(WebDriver driver) {
+	    	 bio.click_module(driver,"bm");
+	    	 bio.click_module(driver,"bm/flexibility-mgr");
+	    	 this.click_dropdown(driver, "Flexibility Level", "Flexibility Board");
+	    	 this.set_approver_update(driver);
+	    	 try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    	 this.set_approver_delete(driver);
+	     }
+	     
+	     public void set_approver_update(WebDriver driver) {
+	    	 this.Explicitywait(driver, By.xpath("(//tbody//mat-select)[1]"));
+	    	 this.Click(driver, By.xpath("(//tbody//mat-select)[1]"));
+	    	 this.Click(driver,By.xpath("//div[@role='listbox']//child::mat-option//span[contains(text(),'Update')]"));
+	    	 this.click_dropdown(driver, "false", "true");
+	    	 driver.findElement(approver_placeholder).sendKeys(Keys.chord(Keys.CONTROL, "a"));
+	    	 driver.findElement(approver_placeholder).sendKeys(Keys.chord(Keys.CONTROL, "x"));
+	    	 this.put_field_data(driver,"nbrOfApprovesToApplyAction","1");
+	    	 this.Click_btn(driver,"Save");
+	    	 this.Click_btn(driver,"Yes");
+	    	 this.Click_btn(driver,"OK");
+	     }
+	     
+	     public void set_approver_delete(WebDriver driver) {
+	    	 this.Explicitywait(driver, By.xpath("(//tbody//mat-select)[6]"));
+	    	 this.Click(driver, By.xpath("(//tbody//mat-select)[6]"));
+	    	 this.Click(driver,By.xpath("//div[@role='listbox']//child::mat-option//span[contains(text(),'Update')]"));
+	    	 this.click_dropdown(driver, "false", "true");
+	    	 driver.findElement(approver_placeholder).sendKeys(Keys.chord(Keys.CONTROL, "a"));
+	    	 driver.findElement(approver_placeholder).sendKeys(Keys.chord(Keys.CONTROL, "x"));
+	    	 this.put_field_data(driver,"nbrOfApprovesToApplyAction","1");
+	    	 this.Click_btn(driver,"Save");
+	    	 this.Click_btn(driver,"Yes");
+	    	 this.Click_btn(driver,"OK");
+	    	 
+	     }
+	     
+	     public void ticket_manager(WebDriver driver) {
+	    	 bio.click_module(driver,"bm");
+	    	 bio.click_module(driver,"bm/ticket-mgr");
+	    	 this.click_dropdown(driver, "Ticket Status", "Open");
+	     }
+	     
+	     public void update_ticket_module(WebDriver driver,String name) {
+	    	 this.ticket_manager(driver);
+	    	 this.Click(driver, By.xpath("//tbody//tr//td[contains(text(),'"+name+"')]//following-sibling::td[1]"));
+	    	 this.Click(driver, By.xpath("//table//thead//tr//th//div[contains(text(),'Ticket ID')]"));
+	    	 this.Click(driver, By.xpath("//table//thead//tr//th//div[contains(text(),'Ticket ID')]"));
+	    	 this.Click(driver, By.xpath("(//tbody[@role='rowgroup']//tr)[1]"));
+	    	 this.Click_btn(driver,"Approve");
+	    	 commFunc.Click_btn(driver,"Select Checkboxes");
+	 		commFunc.Click_btn(driver,"Approve Ticket");
+	 		 this.Click_btn(driver,"Yes");
+	 		 this.Explicitywait(driver, By.xpath("//berd-confirmation//div//p[contains(text(),'Action is being approved and ticket is closed now')]"));
+	 		 if(driver.findElements(By.xpath("//berd-confirmation//div//p[contains(text(),'Action is being approved and ticket is closed now')]")).size()!=0) {
+	 			this.Click_btn(driver,"OK");
+	 		 }
+	     }
 	
 	
 	//-------------------------------Api work-------------------------------------------------------------------
