@@ -21,7 +21,7 @@ public class BaseClass {
 
 	public static WebDriver driver;
 	public ArrayList list = new ArrayList();
-// ExtentReport;
+    // ExtentReport;
 	public ExtentReports rep = ExtentManager.getInstance();
 	public static ExtentTest logger;
 	public static Recordset record;
@@ -33,10 +33,6 @@ public class BaseClass {
 	public static DataInput input = new DataInput();
 	public static ConfigReader conf = new ConfigReader();
 	public static BioLexicon_ObjectPage bio = new BioLexicon_ObjectPage();
-	
-	
-	
-	
 
 	@Parameters({ "enviroment" })
 	@BeforeSuite(description = "initializing Driver", alwaysRun = true)

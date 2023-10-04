@@ -761,6 +761,22 @@ public class CommonFunctions extends BaseClass {
 	 			this.Click_btn(driver,"OK");
 	 		 }
 	     }
+	     
+	     public void delete_ticket_module(WebDriver driver, String name) {
+	    	 this.ticket_manager(driver);
+	    	 this.Click(driver, By.xpath("//tbody//tr//td[contains(text(),'"+name+"')]//following-sibling::td[2]"));
+	    	 this.Click(driver, By.xpath("//table//thead//tr//th//div[contains(text(),'Ticket ID')]"));
+	    	 this.Click(driver, By.xpath("//table//thead//tr//th//div[contains(text(),'Ticket ID')]"));
+	    	 this.Click(driver, By.xpath("(//tbody[@role='rowgroup']//tr)[1]"));
+	    	 this.Click_btn(driver,"Approve");
+	    	 commFunc.Click_btn(driver,"Select Checkboxes");
+	 		commFunc.Click_btn(driver,"Approve Ticket");
+	 		 this.Click_btn(driver,"Yes");
+	 		this.Explicitywait(driver, By.xpath("//berd-confirmation//div//p[contains(text(),'Action is being approved and ticket is closed now')]"));
+	 		 if(driver.findElements(By.xpath("//berd-confirmation//div//p[contains(text(),'Action is being approved and ticket is closed now')]")).size()!=0) {
+	 			this.Click_btn(driver,"OK");
+	 		 }
+	     }
 	
 	
 	//-------------------------------Api work-------------------------------------------------------------------

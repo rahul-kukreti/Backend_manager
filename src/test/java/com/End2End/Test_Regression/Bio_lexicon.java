@@ -165,10 +165,43 @@ public class Bio_lexicon extends BaseClass {
 		commFunc.Click_btn(driver, "Select Checkboxes");
 		commFunc.Click_btn(driver, "Continue Update");
 		bio.validate_update_connector(driver);
-		long end_time= commFunc.end_time();
 		commFunc.update_ticket_module(driver,"LEXICON");
+		long end_time= commFunc.end_time();
 		long timed =commFunc.time_dif(start_time, end_time);
 		bio.updated_approval_connector(driver, timed);
+	}
+	
+	@Test(testName = "Delete connector", priority = 9, enabled = true)
+	public void delete_connector() {
+		System.out.println("//For deleting connector");
+		long start_time = commFunc.start_time();
+		commFunc.Click(driver, By.xpath("(//tbody[@role='rowgroup']//tr)[1]"));
+		commFunc.Click_btn(driver,"DELETE CONNECTOR");
+		commFunc.Click_btn(driver, "Select Checkboxes");
+		commFunc.Click_btn(driver, "Continue Delete");
+		bio.validate_connector(driver);
+		commFunc.delete_ticket_module(driver,"LEXICON");
+		long end_time= commFunc.end_time();
+		long timed =commFunc.time_dif(start_time, end_time);
+		bio.delete_approval_connector(driver, timed);
+	}
+	
+	@Test(testName = "Delete predicate", priority = 10, enabled = true)
+	public void delete_predicate() {
+		System.out.println("//For deleting predicate");
+		long start_time = commFunc.start_time();
+		bio.click_module(driver,"bio&lexicon/predicate");
+		commFunc.Click_btn(driver,"Read");
+		bio.click_Sorticon(driver);
+		commFunc.Click(driver, By.xpath("(//tbody[@role='rowgroup']//tr)[1]"));
+		commFunc.Click_btn(driver,"DELETE");
+		commFunc.Click_btn(driver, "Select Checkboxes");
+		commFunc.Click_btn(driver, "Continue Delete");
+		bio.validate_delete_predicate(driver);
+		commFunc.delete_ticket_module(driver,"LEXICON");
+		long end_time= commFunc.end_time();
+		long timed =commFunc.time_dif(start_time, end_time);
+		bio.delete_approval_predicate(driver, timed);
 	}
 
 }

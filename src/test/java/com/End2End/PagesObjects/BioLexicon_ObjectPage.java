@@ -6,6 +6,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 
 import com.End2End.Test_Regression.BaseClass;
+import com.codoid.products.exception.FilloException;
 import com.relevantcodes.extentreports.LogStatus;
 
 public class BioLexicon_ObjectPage extends BaseClass {
@@ -35,18 +36,12 @@ public class BioLexicon_ObjectPage extends BaseClass {
 	}
 
 	public void validate_add_lexical(WebDriver driver, long timed) {
-		commFunc.Explicitywait(driver,
-				By.xpath("//berd-confirmation//div//p[contains(text(),'Are you sure want to add')]"));
-		if (driver.findElements(By.xpath("//berd-confirmation//div//p[contains(text(),'Are you sure want to add')]"))
-				.size() != 0) {
+		commFunc.Explicitywait(driver,By.xpath("//berd-confirmation//div//p[contains(text(),'Are you sure want to add')]"));
+		if (driver.findElements(By.xpath("//berd-confirmation//div//p[contains(text(),'Are you sure want to add')]")).size() != 0) {
 			commFunc.Click(driver, Yes_btn);
 		}
-		commFunc.Explicitywait(driver,
-				By.xpath("//berd-confirmation//div//p[contains(text(),'Lexcion has been created successfully.')]"));
-		if (driver
-				.findElements(By.xpath(
-						"//berd-confirmation//div//p[contains(text(),'Lexcion has been created successfully.')]"))
-				.size() != 0) {
+		commFunc.Explicitywait(driver,By.xpath("//berd-confirmation//div//p[contains(text(),'Lexcion has been created successfully.')]"));
+		if (driver.findElements(By.xpath("//berd-confirmation//div//p[contains(text(),'Lexcion has been created successfully.')]")).size() != 0) {
 			commFunc.jclick(driver, btn_ok);
 			String s = "User has created lexical successfully";
 			System.out.println(s);
@@ -91,7 +86,7 @@ public class BioLexicon_ObjectPage extends BaseClass {
 			System.err.println(s);
 			logger.log(LogStatus.FAIL, s);
 			commFunc.Click(driver, By.xpath("//berd-confirmation-dialog//mat-icon[contains(text(),'close')]"));
-			commFunc.Data_Pass("validate_add_lexical", s, "FAIL", s, timed, 6, 15);
+			commFunc.Data_Pass("validate_add_lexical", s, "FAIL", s, timed, 4, 15);
 		}
 	}
 
@@ -145,7 +140,7 @@ public class BioLexicon_ObjectPage extends BaseClass {
 			System.err.println(s);
 			logger.log(LogStatus.FAIL, s);
 			commFunc.Click(driver, By.xpath("//berd-bio-concept-detail-dialog//mat-icon[contains(text(),'close')]"));
-			commFunc.Data_Pass("updated_approval_concept", s, "FAIL", s, timed, 6, 15);
+			commFunc.Data_Pass("updated_approval_concept", s, "FAIL", s, timed, 4, 15);
 		}
 	}
 	
@@ -209,10 +204,41 @@ public class BioLexicon_ObjectPage extends BaseClass {
 			System.err.println(s);
 			logger.log(LogStatus.FAIL, s);
 			//commFunc.Click(driver, By.xpath("//berd-confirmation-dialog//mat-icon[contains(text(),'close')]"));
-			commFunc.Data_Pass("updated_approval_predicate", s, "FAIL", s, timed, 6, 15);
+			commFunc.Data_Pass("updated_approval_predicate", s, "FAIL", s, timed, 4, 15);
 		}
 	
 	}
+	
+	public void validate_delete_predicate(WebDriver driver) {
+		commFunc.Explicitywait(driver, Yes_btn);
+		commFunc.Click(driver, Yes_btn);
+		commFunc.Explicitywait(driver, By.xpath("//berd-confirmation//div//p[contains(text(),'BIO_Predicates has been created and required approval to delete record')]"));
+		if (driver.findElements(By.xpath("//berd-confirmation//div//p[contains(text(),'BIO_Predicates has been created and required approval to delete record')]")).size() != 0) {
+			String s = "Connector sent for delete approval";
+			System.out.println(s);
+			logger.log(LogStatus.INFO, s);
+			commFunc.Click(driver, btn_ok);
+		}
+	}
+	
+	public void delete_approval_predicate(WebDriver driver, long timed) {
+		this.click_module(driver, "bio&lexicon");
+		this.click_module(driver,"bio&lexicon/predicate");
+		commFunc.Click_btn(driver, "Read");
+		commFunc.put_field_data(driver,"Search","algebra");
+		if (driver.findElements(By.xpath("//tbody//td[contains(text(),'algebra')]")).size() != 0) {
+			String s = "User can able to see deleted predicate";
+			System.err.println(s);
+			logger.log(LogStatus.FAIL, s);
+			commFunc.Data_Pass("delete_approval_predicate", s, "FAIL", s, timed, 4, 15);
+		} else {
+			String s = "User cannot able to see deleted predicate";
+			System.out.println(s);
+			logger.log(LogStatus.INFO, s);
+			logger.log(LogStatus.PASS, s);
+			commFunc.Data_Pass("delete_approval_predicate", s, "PASS","", timed, 1, 15);
+		}
+  }
 	
 	//---------------------------------------------Connector----------------------------------------------------------------------------------
 	
@@ -279,7 +305,38 @@ public class BioLexicon_ObjectPage extends BaseClass {
 			System.err.println(s);
 			logger.log(LogStatus.FAIL, s);
 			commFunc.Click(driver, By.xpath("//berd-confirmation-dialog//mat-icon[contains(text(),'close')]"));
-			commFunc.Data_Pass("updated_approval_connector", s, "FAIL", s, timed, 6, 15);
+			commFunc.Data_Pass("updated_approval_connector", s, "FAIL", s, timed, 4, 15);
 		}
  }
+	
+	public void validate_connector(WebDriver driver) {
+		commFunc.Explicitywait(driver, Yes_btn);
+		commFunc.Click(driver, Yes_btn);
+		commFunc.Explicitywait(driver, By.xpath("//berd-confirmation//div//p[contains(text(),'BIO_Connectors has been created and required approval to delete record')]"));
+		if (driver.findElements(By.xpath("//berd-confirmation//div//p[contains(text(),'BIO_Connectors has been created and required approval to delete record')]")).size() != 0) {
+			String s = "Connector sent for delete approval";
+			System.out.println(s);
+			logger.log(LogStatus.INFO, s);
+			commFunc.Click(driver, btn_ok);
+		}
+	}
+	
+	public void delete_approval_connector(WebDriver driver, long timed) {
+		this.click_module(driver, "bio&lexicon");
+		this.click_module(driver,"bio&lexicon/connector");
+		commFunc.Click_btn(driver, "Read");
+		commFunc.put_field_data(driver,"Search","up");
+		if (driver.findElements(By.xpath("//tbody//td[contains(text(),'updatedC')]")).size() != 0) {
+			String s = "User can able to see deleted connector";
+			System.err.println(s);
+			logger.log(LogStatus.FAIL, s);
+			commFunc.Data_Pass("delete_approval_connector", s, "FAIL", s, timed, 4, 15);
+		} else {
+			String s = "User cannot able to see deleted connector";
+			System.out.println(s);
+			logger.log(LogStatus.INFO, s);
+			logger.log(LogStatus.PASS, s);
+			commFunc.Data_Pass("delete_approval_connector", s, "PASS","", timed, 1, 15);
+		}
   }
+}
