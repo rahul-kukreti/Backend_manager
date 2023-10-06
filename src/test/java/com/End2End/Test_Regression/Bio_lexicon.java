@@ -70,7 +70,7 @@ public class Bio_lexicon extends BaseClass {
 		commFunc.Click_btn(driver,"Create Concept");
 		long end_time= commFunc.end_time();
 		long timed =commFunc.time_dif(start_time, end_time);
-		bio.validate_concept(driver);
+		bio.validate_concept(driver,timed);
 		//bio.click_module(driver, "bio&lexicon/concept");
 		//commFunc.Click_btn(driver,"Read");
 	}

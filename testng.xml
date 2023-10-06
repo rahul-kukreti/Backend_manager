@@ -7,9 +7,14 @@
 	</listeners>
 	<parameter name="enviroment" value="stage" />
 	<parameter name="testCaseID" value="testCaseID_01" />
-	 <test name="Bio_lexicon" preserve-order="true">
+	<!--  <test name="Bio_lexicon" preserve-order="true">
 		<classes>
 			<class name="com.End2End.Test_Regression.Bio_lexicon" />
+		</classes>
+	</test> -->
+	<test name="Coordinate_manager" preserve-order="true">
+		<classes>
+			<class name="com.End2End.Test_Regression.Coordinate_manager" />
 		</classes>
 	</test> 
 </suite>

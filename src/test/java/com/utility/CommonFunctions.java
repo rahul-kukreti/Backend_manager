@@ -715,6 +715,7 @@ public class CommonFunctions extends BaseClass {
 	     
 	     public void set_approver_update(WebDriver driver) {
 	    	 this.Explicitywait(driver, By.xpath("(//tbody//mat-select)[1]"));
+	    	 this.scrollIntoElement(driver, By.xpath("(//tbody//mat-select)[1]"));
 	    	 this.Click(driver, By.xpath("(//tbody//mat-select)[1]"));
 	    	 this.Click(driver,By.xpath("//div[@role='listbox']//child::mat-option//span[contains(text(),'Update')]"));
 	    	 this.click_dropdown(driver, "false", "true");
@@ -728,6 +729,7 @@ public class CommonFunctions extends BaseClass {
 	     
 	     public void set_approver_delete(WebDriver driver) {
 	    	 this.Explicitywait(driver, By.xpath("(//tbody//mat-select)[6]"));
+	    	 this.scrollIntoElement(driver, By.xpath("(//tbody//mat-select)[6]"));
 	    	 this.Click(driver, By.xpath("(//tbody//mat-select)[6]"));
 	    	 this.Click(driver,By.xpath("//div[@role='listbox']//child::mat-option//span[contains(text(),'Update')]"));
 	    	 this.click_dropdown(driver, "false", "true");

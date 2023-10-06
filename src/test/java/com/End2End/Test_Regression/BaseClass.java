@@ -7,6 +7,7 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
 
 import com.End2End.PagesObjects.BioLexicon_ObjectPage;
+import com.End2End.PagesObjects.CoordinateManager_ObjectPage;
 import com.codoid.products.exception.FilloException;
 import com.codoid.products.fillo.Recordset;
 import com.relevantcodes.extentreports.ExtentReports;
@@ -33,6 +34,7 @@ public class BaseClass {
 	public static DataInput input = new DataInput();
 	public static ConfigReader conf = new ConfigReader();
 	public static BioLexicon_ObjectPage bio = new BioLexicon_ObjectPage();
+	public static CoordinateManager_ObjectPage coordinate = new CoordinateManager_ObjectPage();
 
 	@Parameters({ "enviroment" })
 	@BeforeSuite(description = "initializing Driver", alwaysRun = true)

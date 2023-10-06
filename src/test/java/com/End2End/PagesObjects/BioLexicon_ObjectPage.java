@@ -4,9 +4,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-
 import com.End2End.Test_Regression.BaseClass;
-import com.codoid.products.exception.FilloException;
 import com.relevantcodes.extentreports.LogStatus;
 
 public class BioLexicon_ObjectPage extends BaseClass {
@@ -92,7 +90,7 @@ public class BioLexicon_ObjectPage extends BaseClass {
 
 	// ------------------------------------------For concept------------------------------------------------------------------
 
-	public void validate_concept(WebDriver Driver) {
+	public void validate_concept(WebDriver Driver,long timed) {
 		commFunc.Explicitywait(driver, Yes_btn);
 		commFunc.Click(driver, Yes_btn);
 		commFunc.Explicitywait(driver, By.xpath("//berd-confirmation//child::p[contains(text(),'Concept Created!')]"));
