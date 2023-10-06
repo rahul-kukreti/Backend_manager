@@ -1,9 +1,14 @@
 package com.End2End.PagesObjects;
 
+import java.util.Iterator;
+import java.util.List;
+
 import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
 import com.End2End.Test_Regression.BaseClass;
 import com.relevantcodes.extentreports.LogStatus;
 
@@ -85,6 +90,30 @@ public class BioLexicon_ObjectPage extends BaseClass {
 			logger.log(LogStatus.FAIL, s);
 			commFunc.Click(driver, By.xpath("//berd-confirmation-dialog//mat-icon[contains(text(),'close')]"));
 			commFunc.Data_Pass("validate_add_lexical", s, "FAIL", s, timed, 4, 15);
+		}
+	}
+	
+	
+      public void validate_maturity(WebDriver driver) throws InterruptedException {
+		
+		if(driver.findElements(By.xpath("//berd-manage-maturity-button//button//span[contains(text(),'Increase Maturity')]")).size()!=0) {
+			
+		List<WebElement> li = driver.findElements(By.xpath("//berd-manage-maturity-button//button//span[contains(text(),'Increase Maturity')]"));
+		
+		Iterator<WebElement> itr = li.iterator();
+		while (itr.hasNext()) {
+			Thread.sleep(4000);
+			if(driver.findElements(By.xpath("(//button//span[contains(text(),'Increase Maturity')])[2]")).size()!=0) {
+			
+				commFunc.jclick(driver,By.xpath("(//button//span[contains(text(),'Increase Maturity')])[2]"));
+				String str = "Maturity validated successfully!";
+				logger.log(LogStatus.INFO, str);
+				logger.log(LogStatus.PASS, str);
+			}
+		
+			break;
+			
+}
 		}
 	}
 

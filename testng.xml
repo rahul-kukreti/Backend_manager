@@ -11,10 +11,15 @@
 		<classes>
 			<class name="com.End2End.Test_Regression.Bio_lexicon" />
 		</classes>
-	</test> -->
+	</test>
 	<test name="Coordinate_manager" preserve-order="true">
 		<classes>
 			<class name="com.End2End.Test_Regression.Coordinate_manager" />
 		</classes>
-	</test> 
+	</test>-->
+	<test name="Upal_parameter" preserve-order="true">
+		<classes>
+			<class name="com.End2End.Test_Regression.Upal_parameter" />
+		</classes>
+	</test>
 </suite>

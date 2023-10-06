@@ -457,37 +457,38 @@ public class CommonFunctions extends BaseClass {
 		return date;
 	}
 
-//	public void add_data_simple(WebDriver driver) {
-//		upal.click_dropdown(driver, "PLURALITY", "SINGULAR");
-//
-//		// For selecting adopted variable value
-//		upal.click_parameter_dropdown(driver, "ADOPTED VARIABLE");
-//		upal.filter(driver);
-//		upal.click_coordinate_paramter_icon(driver, "what is");
-//		upal.click_coordinate_paramter_icon(driver, "numeric");
-//		upal.click_coordinate_paramter_icon(driver, "numeric  simple");
-//		upal.click_coordinate(driver, "a Road");
-//
-//		// For selecting adopted subject value
-//		upal.click_parameter_dropdown(driver, "ADOPTED SUBJECT");
-//		upal.filter(driver);
-//		upal.click_coordinate_paramter_icon(driver, "subject");
-//		upal.click_coordinate_paramter_icon(driver, "resource");
-//		upal.click_coordinate(driver, "a Road");
-//
-//		// For selecting adopted function value
-//		upal.click_parameter_dropdown(driver, "ADOPTED EV_F TYPE");
-//		upal.filter(driver);
-//		upal.click_coordinate_paramter_icon(driver, "internal");
-//		upal.click_coordinate_paramter_icon(driver, "free value");
-//		upal.click_coordinate(driver, "a Road");
-//
-//		// For selecting ranges
-//		upal.click_parameter_dropdown(driver, "C1 RANGES");
-//		upal.ranges_paramter(driver, "integer");
-//
-//		commFunc.Click_btn(driver, "SUBMIT");
-//	}
+	public void add_data_simple(WebDriver driver) throws FilloException {
+		upal.click_dropdown(driver, "PLURALITY", "SINGULAR");
+
+		// For selecting adopted variable value
+		upal.click_parameter_dropdown(driver, "ADOPTED VARIABLE");
+		String Designation = record.getField("Designation");
+		upal.filter(driver,Designation);
+		upal.click_coordinate_paramter_icon(driver, "what is");
+		upal.click_coordinate_paramter_icon(driver, "numeric");
+		upal.click_coordinate_paramter_icon(driver, "numeric  simple");
+		upal.click_coordinate(driver, Designation);
+
+		// For selecting adopted subject value
+		upal.click_parameter_dropdown(driver, "ADOPTED SUBJECT");
+		upal.filter(driver,Designation);
+		upal.click_coordinate_paramter_icon(driver, "subject");
+		upal.click_coordinate_paramter_icon(driver, "resource");
+		upal.click_coordinate(driver, Designation);
+
+		// For selecting adopted function value
+		upal.click_parameter_dropdown(driver, "ADOPTED EV_F TYPE");
+		upal.filter(driver,Designation);
+		upal.click_coordinate_paramter_icon(driver, "internal");
+		upal.click_coordinate_paramter_icon(driver, "free value");
+		upal.click_coordinate(driver, Designation);
+
+		// For selecting ranges
+		upal.click_parameter_dropdown(driver, "C1 RANGES");
+		upal.ranges_paramter(driver, "200");
+
+		commFunc.Click_btn(driver, "SUBMIT");
+	}
 
 //	public void select_data(WebDriver driver) {
 //		// Search by variable value

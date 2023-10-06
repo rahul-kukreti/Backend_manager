@@ -11,7 +11,6 @@ public class Coordinate_manager extends BaseClass {
 	public void create_C1() throws FilloException {
 		logger = rep.startTest("Coordinate manager scenarios");
 		System.out.println("//For creating c1 varibale");
-		commFunc.login_User1(driver);//ye hataga
 		long start_time = commFunc.start_time();
 		bio.click_module(driver, "coordinate");
 		bio.click_module(driver, "coordinate/c1");
