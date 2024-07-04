@@ -14,7 +14,6 @@ import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -54,6 +53,21 @@ public class CommonFunctions extends BaseClass {
 			this.Explicitywait(driver,By.xpath("//mat-label[text()='" + field_data + "']//ancestor::mat-form-field//following-sibling::input"));
 			if (driver.findElements(By.xpath("//mat-label[text()='" + field_data + "']//ancestor::mat-form-field//following-sibling::input")).size() != 0) {
 				WebElement ele = driver.findElement(By.xpath("//mat-label[text()='" + field_data + "']//ancestor::mat-form-field//following-sibling::input"));
+
+				ele.sendKeys(value);
+
+			}
+		} catch (TimeoutException e) {
+
+			throw new TimeoutException("element not found", e);
+		}
+	}
+	
+	public void put_field_search(WebDriver driver, String value) {
+		try {
+			this.Explicitywait(driver,By.xpath("//mat-form-field//input"));
+			if (driver.findElements(By.xpath("//mat-form-field//input")).size() != 0) {
+				WebElement ele = driver.findElement(By.xpath("//mat-form-field//input"));
 
 				ele.sendKeys(value);
 
@@ -332,15 +346,15 @@ public class CommonFunctions extends BaseClass {
 		wait.until(ExpectedConditions.textToBePresentInElementLocated(WebElement, text));
 	}
 
-	public String GetCurrentDate(String ReqDateFormate) {
-
-		DateFormat dateFormat = new SimpleDateFormat(ReqDateFormate);
-		Date date = new Date();
-		String date1 = dateFormat.format(date);
-
-		return date1;
-
-	}
+//	public String GetCurrentDate(String ReqDateFormate) {
+//
+//		DateFormat dateFormat = new SimpleDateFormat(ReqDateFormate);
+//		Date date = new Date();
+//		String date1 = dateFormat.format(date);
+//
+//		return date1;
+//
+//	}
 
 	public boolean isElementInteractable(WebDriver driver, By element) {
 		try {
@@ -391,71 +405,71 @@ public class CommonFunctions extends BaseClass {
 
 	// <---------------Convert Date Formate--------------------------->
 
-	public String DateFormateConvert(String PrasentDateFormate, String ExpectedDateFormate, String Valu)
-			throws ParseException {
-		SimpleDateFormat dateFormat = new SimpleDateFormat(PrasentDateFormate);
-		Date myDate = dateFormat.parse(Valu);
+//	public String DateFormateConvert(String PrasentDateFormate, String ExpectedDateFormate, String Valu)
+//			throws ParseException {
+//		SimpleDateFormat dateFormat = new SimpleDateFormat(PrasentDateFormate);
+//		Date myDate = dateFormat.parse(Valu);
+//
+//		SimpleDateFormat dateFormat2 = new SimpleDateFormat(ExpectedDateFormate);
+//		String Result = dateFormat2.format(myDate);
+//		System.out.println("*********Date Formate Changed Successfully*******" + "  " + Result);
+//		return Result;
+//
+//	}
 
-		SimpleDateFormat dateFormat2 = new SimpleDateFormat(ExpectedDateFormate);
-		String Result = dateFormat2.format(myDate);
-		System.out.println("*********Date Formate Changed Successfully*******" + "  " + Result);
-		return Result;
+	/*
+	 * // ------------Get System Time and Date----------- public String
+	 * getSystemDateTime() {
+	 * 
+	 * DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	 * 
+	 * // get current date time with Date() Date date = new Date();
+	 * 
+	 * // Now format the date String date1 = dateFormat.format(date.getTime());
+	 * 
+	 * // Print the Date
+	 * 
+	 * // DateTimeFormatter dtf =
+	 * DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"); // LocalDateTime now =
+	 * LocalDateTime.now(); return date1;
+	 * 
+	 * }
+	 */
 
-	}
+//	public String DateTimeWeekly() {
+//		DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
+//		Calendar cal = Calendar.getInstance();
+//		cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+//		String date = dateFormat2.format(cal.getTime());
+//		return date;
+//
+//	}
 
-	// ------------Get System Time and Date-----------
-	public String getSystemDateTime() {
+//	public String DateTimemonthly_Start() {
+//		DateFormat dateFormat3 = new SimpleDateFormat("yyyy-MM-dd");
+//		Calendar cal = Calendar.getInstance();
+//		cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH));
+//		String date = dateFormat3.format(cal.getTime());
+//		return date;
+//
+//	}
 
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-		// get current date time with Date()
-		Date date = new Date();
-
-		// Now format the date
-		String date1 = dateFormat.format(date.getTime());
-
-		// Print the Date
-		
-//		 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-//		   LocalDateTime now = LocalDateTime.now();
-		return date1;
-
-	}
-
-	public String DateTimeWeekly() {
-		DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
-		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-		String date = dateFormat2.format(cal.getTime());
-		return date;
-
-	}
-
-	public String DateTimemonthly_Start() {
-		DateFormat dateFormat3 = new SimpleDateFormat("yyyy-MM-dd");
-		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH));
-		String date = dateFormat3.format(cal.getTime());
-		return date;
-
-	}
-
-	public String DateTimemonthly_End() {
-		DateFormat dateFormat3 = new SimpleDateFormat("yyyy-MM-dd");
-		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
-		String date = dateFormat3.format(cal.getTime());
-		return date;
-
-	}
-
-	public String last_14_days() {
-		DateFormat dateFormat3 = new SimpleDateFormat("yyyy-MM-dd");
-		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.DATE, -14);
-		String date = dateFormat3.format(cal.getTime());
-		return date;
-	}
+//	public String DateTimemonthly_End() {
+//		DateFormat dateFormat3 = new SimpleDateFormat("yyyy-MM-dd");
+//		Calendar cal = Calendar.getInstance();
+//		cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+//		String date = dateFormat3.format(cal.getTime());
+//		return date;
+//
+//	}
+//
+//	public String last_14_days() {
+//		DateFormat dateFormat3 = new SimpleDateFormat("yyyy-MM-dd");
+//		Calendar cal = Calendar.getInstance();
+//		cal.add(Calendar.DATE, -14);
+//		String date = dateFormat3.format(cal.getTime());
+//		return date;
+//	}
 
 	public void add_data_simple(WebDriver driver) throws FilloException {
 		upal.click_dropdown(driver, "PLURALITY", "SINGULAR");
@@ -591,7 +605,24 @@ public class CommonFunctions extends BaseClass {
 //}
 
 	
+	//Bio & lexicon work------------------------------------------------------
 	
+	public void delete_lexicon_path(WebDriver driver) {
+		commFunc.Click(driver, By.xpath("(//tbody[@role='rowgroup']//tr)[1]"));
+		commFunc.Click_btn(driver,"DELETE LEXICON");
+		commFunc.Click_btn(driver,"CONFIRM DELETE");
+		commFunc.Click_btn(driver, "Continue Delete");
+		commFunc.Click_btn(driver,"Yes");
+		commFunc.Click_btn(driver,"OK");
+	}
+	
+	public void delete_lexicon_paths(WebDriver driver) {
+		commFunc.Click(driver, By.xpath("(//tbody[@role='rowgroup']//tr)[1]"));
+		commFunc.Click_btn(driver,"DELETE LEXICON");
+		commFunc.Click_btn(driver,"CONFIRM DELETE");
+		commFunc.Click_btn(driver, "Continue Delete");
+		commFunc.Click_btn(driver,"Yes");
+	}
 	
 	
 	
@@ -693,6 +724,15 @@ public class CommonFunctions extends BaseClass {
 				commFunc.Click(driver, login_btn);
 		}
 	     
+	     public void login_User_inctive(WebDriver driver) {
+				commFunc.sendKeys(driver, username, (conf.get_email()));
+				commFunc.sendKeys(driver, password, (conf.get_passwordn()));
+				commFunc.Explicitywait(driver, login_btn);
+				commFunc.Click(driver, login_btn);
+		}
+	     
+	     
+	     
 	     
 	     public void logout(WebDriver driver) {
 	    	 this.Explicitywait(driver, By.xpath("//berd-sidebar//mat-toolbar//button//mat-icon[contains(text(),'person')]"));
@@ -715,9 +755,9 @@ public class CommonFunctions extends BaseClass {
 	     }
 	     
 	     public void set_approver_update(WebDriver driver) {
-	    	 this.Explicitywait(driver, By.xpath("(//tbody//mat-select)[1]"));
-	    	 this.scrollIntoElement(driver, By.xpath("(//tbody//mat-select)[1]"));
-	    	 this.Click(driver, By.xpath("(//tbody//mat-select)[1]"));
+	    	 this.Explicitywait(driver, By.xpath("(//mat-card-content//tbody//tr//td[contains(text(),'BERD - no restriction default')]//following-sibling::td//mat-select)[1]"));
+	    	 this.scrollIntoElement(driver, By.xpath("(//mat-card-content//tbody//tr//td[contains(text(),'BERD - no restriction default')]//following-sibling::td//mat-select)[1]"));
+	    	 this.Click(driver, By.xpath("(//mat-card-content//tbody//tr//td[contains(text(),'BERD - no restriction default')]//following-sibling::td//mat-select)[1]"));
 	    	 this.Click(driver,By.xpath("//div[@role='listbox']//child::mat-option//span[contains(text(),'Update')]"));
 	    	 this.click_dropdown(driver, "false", "true");
 	    	 driver.findElement(approver_placeholder).sendKeys(Keys.chord(Keys.CONTROL, "a"));
@@ -728,10 +768,21 @@ public class CommonFunctions extends BaseClass {
 	    	 this.Click_btn(driver,"OK");
 	     }
 	     
+	     public void set_previous_state_update(WebDriver driver) {
+	    	 this.Explicitywait(driver, By.xpath("(//mat-card-content//tbody//tr//td[contains(text(),'BERD - no restriction default')]//following-sibling::td//mat-select)[1]"));
+	    	 this.scrollIntoElement(driver, By.xpath("(//mat-card-content//tbody//tr//td[contains(text(),'BERD - no restriction default')]//following-sibling::td//mat-select)[1]"));
+	    	 this.Click(driver, By.xpath("(//mat-card-content//tbody//tr//td[contains(text(),'BERD - no restriction default')]//following-sibling::td//mat-select)[1]"));
+	    	 this.Click(driver,By.xpath("//div[@role='listbox']//child::mat-option//span[contains(text(),'Update')]"));
+	    	 this.click_dropdown(driver, "true", "false");
+	    	 this.Click_btn(driver,"Save");
+	    	 this.Click_btn(driver,"Yes");
+	    	 this.Click_btn(driver,"OK");
+	     }
+	     
 	     public void set_approver_delete(WebDriver driver) {
-	    	 this.Explicitywait(driver, By.xpath("(//tbody//mat-select)[6]"));
-	    	 this.scrollIntoElement(driver, By.xpath("(//tbody//mat-select)[6]"));
-	    	 this.Click(driver, By.xpath("(//tbody//mat-select)[6]"));
+	    	 this.Explicitywait(driver, By.xpath("(//mat-card-content//tbody//tr//td[contains(text(),'BERD - no restriction default')]//following-sibling::td//mat-select)[2]"));
+	    	 this.scrollIntoElement(driver, By.xpath("(//mat-card-content//tbody//tr//td[contains(text(),'BERD - no restriction default')]//following-sibling::td//mat-select)[2]"));
+	    	 this.Click(driver, By.xpath("(//mat-card-content//tbody//tr//td[contains(text(),'BERD - no restriction default')]//following-sibling::td//mat-select)[2]"));
 	    	 this.Click(driver,By.xpath("//div[@role='listbox']//child::mat-option//span[contains(text(),'Update')]"));
 	    	 this.click_dropdown(driver, "false", "true");
 	    	 driver.findElement(approver_placeholder).sendKeys(Keys.chord(Keys.CONTROL, "a"));
@@ -739,8 +790,18 @@ public class CommonFunctions extends BaseClass {
 	    	 this.put_field_data(driver,"nbrOfApprovesToApplyAction","1");
 	    	 this.Click_btn(driver,"Save");
 	    	 this.Click_btn(driver,"Yes");
+	    	 this.Click_btn(driver,"OK"); 
+	     }
+	     
+	     public void set_previous_state_delete(WebDriver driver) {
+	    	 this.Explicitywait(driver, By.xpath("(//mat-card-content//tbody//tr//td[contains(text(),'BERD - no restriction default')]//following-sibling::td//mat-select)[2]"));
+	    	 this.scrollIntoElement(driver, By.xpath("(//mat-card-content//tbody//tr//td[contains(text(),'BERD - no restriction default')]//following-sibling::td//mat-select)[2]"));
+	    	 this.Click(driver, By.xpath("(//mat-card-content//tbody//tr//td[contains(text(),'BERD - no restriction default')]//following-sibling::td//mat-select)[2]"));
+	    	 this.Click(driver,By.xpath("//div[@role='listbox']//child::mat-option//span[contains(text(),'Update')]"));
+	    	 this.click_dropdown(driver, "true", "false");
+	    	 this.Click_btn(driver,"Save");
+	    	 this.Click_btn(driver,"Yes");
 	    	 this.Click_btn(driver,"OK");
-	    	 
 	     }
 	     
 	     public void ticket_manager(WebDriver driver) {
@@ -756,7 +817,7 @@ public class CommonFunctions extends BaseClass {
 	    	 this.Click(driver, By.xpath("//table//thead//tr//th//div[contains(text(),'Ticket ID')]"));
 	    	 this.Click(driver, By.xpath("(//tbody[@role='rowgroup']//tr)[1]"));
 	    	 this.Click_btn(driver,"Approve");
-	    	 commFunc.Click_btn(driver,"Select Checkboxes");
+	    	// commFunc.Click_btn(driver,"Select Checkboxes");
 	 		commFunc.Click_btn(driver,"Approve Ticket");
 	 		 this.Click_btn(driver,"Yes");
 	 		 this.Explicitywait(driver, By.xpath("//berd-confirmation//div//p[contains(text(),'Action is being approved and ticket is closed now')]"));
@@ -772,13 +833,36 @@ public class CommonFunctions extends BaseClass {
 	    	 this.Click(driver, By.xpath("//table//thead//tr//th//div[contains(text(),'Ticket ID')]"));
 	    	 this.Click(driver, By.xpath("(//tbody[@role='rowgroup']//tr)[1]"));
 	    	 this.Click_btn(driver,"Approve");
-	    	 commFunc.Click_btn(driver,"Select Checkboxes");
+	    	 //commFunc.Click_btn(driver,"Select Checkboxes");
 	 		commFunc.Click_btn(driver,"Approve Ticket");
 	 		 this.Click_btn(driver,"Yes");
 	 		this.Explicitywait(driver, By.xpath("//berd-confirmation//div//p[contains(text(),'Action is being approved and ticket is closed now')]"));
 	 		 if(driver.findElements(By.xpath("//berd-confirmation//div//p[contains(text(),'Action is being approved and ticket is closed now')]")).size()!=0) {
 	 			this.Click_btn(driver,"OK");
 	 		 }
+	     }
+	     
+	     public void delete_ticket_same_user(WebDriver driver,String name) {
+	    	 this.ticket_manager(driver);
+	    	 this.Click(driver, By.xpath("//tbody//tr//td[contains(text(),'"+name+"')]//following-sibling::td[2]"));
+	    	 this.Click(driver, By.xpath("//table//thead//tr//th//div[contains(text(),'Ticket ID')]"));
+	    	 this.Click(driver, By.xpath("//table//thead//tr//th//div[contains(text(),'Ticket ID')]"));
+	    	 this.Click(driver, By.xpath("(//tbody[@role='rowgroup']//tr)[1]"));
+	    	 this.Click_btn(driver,"Approve");
+	 		commFunc.Click_btn(driver,"Approve Ticket");
+	 		 this.Click_btn(driver,"Yes");
+	     }
+	     
+	     //flexibility--------------------------------
+	     
+	     public void flexibility_reverse(WebDriver driver) {
+	    	 this.Click_btn(driver,"Define Working Flexibility");
+	    	 this.dropdown_data(driver,"New Working Flexibility","1");
+	    	 this.Click_btn(driver,"Save");
+	    	 this.Click_btn(driver,"Yes");
+	    	 this.Click(driver,By.xpath("//button//span[contains(text(),'OK')]"));
+	    	 this.Click(driver, By.xpath("//button//span[contains(text(),'Ok')]"));
+	    	 this.login_User1(driver);
 	     }
 	
 	

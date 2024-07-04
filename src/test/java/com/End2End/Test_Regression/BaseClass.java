@@ -6,9 +6,10 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
 
-import com.End2End.PagesObjects.BioLexicon_ObjectPage;
+import com.End2End.PagesObjects.Backend_manager_ObjectPage;
 import com.End2End.PagesObjects.CoordinateManager_ObjectPage;
 import com.End2End.PagesObjects.Upalparameter_ObjectPage;
+import com.End2End.PagesObjects.User_manager_OjectPage;
 import com.codoid.products.exception.FilloException;
 import com.codoid.products.fillo.Recordset;
 import com.relevantcodes.extentreports.ExtentReports;
@@ -34,16 +35,17 @@ public class BaseClass {
 	public static BrowserFactory browserSelect = new BrowserFactory();
 	public static DataInput input = new DataInput();
 	public static ConfigReader conf = new ConfigReader();
-	public static BioLexicon_ObjectPage bio = new BioLexicon_ObjectPage();
+	public static Backend_manager_ObjectPage bio = new Backend_manager_ObjectPage();
 	public static CoordinateManager_ObjectPage coordinate = new CoordinateManager_ObjectPage();
 	public static Upalparameter_ObjectPage upal = new Upalparameter_ObjectPage();
+	public static User_manager_OjectPage user = new User_manager_OjectPage();
 
 	@Parameters({ "enviroment" })
 	@BeforeSuite(description = "initializing Driver", alwaysRun = true)
 	public void initializeDriver(String enviroment) throws InterruptedException {
 		driver = browserSelect.openChromeIncongnito();
 		driver.manage().window().maximize();
-		driver.get("http://berd-internal-tools-dev-env.s3-website.eu-west-3.amazonaws.com/auth");
+		driver.get("http://berd-internal-tool-dev2-env.s3-website.eu-west-3.amazonaws.com/auth");
 
 	}
 

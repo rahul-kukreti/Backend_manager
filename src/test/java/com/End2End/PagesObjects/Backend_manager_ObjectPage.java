@@ -10,15 +10,17 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import com.End2End.Test_Regression.BaseClass;
+import com.codoid.products.exception.FilloException;
 import com.relevantcodes.extentreports.LogStatus;
 
-public class BioLexicon_ObjectPage extends BaseClass {
+public class Backend_manager_ObjectPage extends BaseClass {
 	
 	public String s = RandomStringUtils.randomAlphanumeric(5);
 
 	By Yes_btn = By.xpath("//button//span[contains(text(),'Yes')]");
 	By btn_ok = By.xpath("//button//span[contains(text(),'OK')]");
 	By sort_id = By.xpath("//table//thead//tr//th//div[contains(text(),'Id')]");
+	By sort_Id = By.xpath("//table//thead//tr//th//div[contains(text(),'id')]");
 	By checkbox_click = By.xpath("//mat-checkbox//div//label[contains(text(),'mainAxiom')]");
 	By definition = By.xpath("//mat-label[text()='Designation']//ancestor::mat-form-field//following-sibling::input");
 
@@ -32,6 +34,13 @@ public class BioLexicon_ObjectPage extends BaseClass {
 		commFunc.Click(driver, sort_id);
 		commFunc.Click(driver, sort_id);
 	}
+	
+	public void click_Sorticons(WebDriver driver) {
+		commFunc.Explicitywait(driver, sort_Id);
+		commFunc.Click(driver, sort_Id);
+		commFunc.Click(driver, sort_Id);
+	}
+	
 
 	public void click_checkbox(WebDriver driver) {
 		commFunc.Explicitywait(driver, checkbox_click);
@@ -73,12 +82,38 @@ public class BioLexicon_ObjectPage extends BaseClass {
 			commFunc.Click(driver, btn_ok);
 		}
 	}
+	
+	public void maturity_level(WebDriver driver) throws InterruptedException {
+		if(driver.findElements(By.xpath("//berd-manage-maturity-button//button//span[contains(text(),'Increase Maturity')]")).size()!=0) {
+			
+			List<WebElement> li = driver.findElements(By.xpath("//berd-manage-maturity-button//button//span[contains(text(),'Increase Maturity')]"));
+			Iterator<WebElement> itr = li.iterator();
+			while (itr.hasNext()) {
+				Thread.sleep(4000);
+				if(driver.findElements(By.xpath("(//button//span[contains(text(),'Increase Maturity')])[2]")).size()!=0) {
+				
+					commFunc.jclick(driver,By.xpath("(//button//span[contains(text(),'Increase Maturity')])[2]"));
+					Thread.sleep(1000);
+					commFunc.jclick(driver,By.xpath("(//button//span[contains(text(),'Increase Maturity')])[2]"));
+					
+					
+	}
+				break;
+			
+			}
+			Thread.sleep(2000);
+			commFunc.Click(driver, By.xpath("//berd-manage-maturity-dialog//button//span[contains(text(),'Cancel')]"));
+				
+				
+}
+		}
 
 	public void updated_approval_lexicon(WebDriver driver, String value, long timed) {
 		this.click_module(driver, "bio&lexicon");
 		commFunc.Click_btn(driver, "Read");
 		this.click_Sorticon(driver);
-		if (driver.findElements(By.xpath("//tbody//td[contains(text(),'" + value + "')]")).size() != 0) {
+		commFunc.Explicitywait(driver, By.xpath("//tbody//td//div[contains(text(),'" + value + "')]"));
+		if (driver.findElements(By.xpath("//tbody//td//div[contains(text(),'" + value + "')]")).size() != 0) {
 			String s = "Lexicon updated via ticket";
 			System.out.println(s);
 			logger.log(LogStatus.INFO, s);
@@ -116,6 +151,28 @@ public class BioLexicon_ObjectPage extends BaseClass {
 }
 		}
 	}
+      
+      public void validate_delete_button_twice(WebDriver driver,long timed) {
+    	  commFunc.Explicitywait(driver, By.xpath("//berd-confirmation-dialog//p[contains(text(),'This entity is already in worked')]"));
+    	  if(driver.findElements(By.xpath("//berd-confirmation-dialog//p[contains(text(),'This entity is already in worked')]")).size()!=0) {
+    		  String s = "User cannot able to send duplciate delete request";
+    		  System.out.println(s);
+    		  logger.log(LogStatus.INFO, s);
+  			logger.log(LogStatus.PASS, s);
+  			//commFunc.Click(driver, btn_ok);
+  			commFunc.Click_btn(driver,"OK");
+  			commFunc.Data_Pass("validate_delete_button_twice", s, "PASS", "", timed, 1, 15);
+    		  
+    	  }
+    	  else {
+    		  String s = "User can able to send duplciate delete request";
+  			System.err.println(s);
+  			logger.log(LogStatus.FAIL, s);
+  			commFunc.Data_Pass("validate_delete_button_twice", s, "FAIL", s, timed, 4, 15);
+  			commFunc.Click(driver, By.xpath("//berd-confirmation-dialog//mat-icon[contains(text(),'close')]"));
+    	  }
+    	  
+      }
 
 	// ------------------------------------------For concept------------------------------------------------------------------
 
@@ -215,30 +272,28 @@ public class BioLexicon_ObjectPage extends BaseClass {
 		}
 	}
 	
-	public void updated_approval_predicate(WebDriver driver, long timed) {
+	public void updated_approval_lexicon(WebDriver driver, long timed) throws FilloException {
 		this.click_module(driver, "bio&lexicon");
-		this.click_module(driver,"bio&lexicon/predicate");
+		//this.click_module(driver,"bio&lexicon/predicate");
 		commFunc.Click_btn(driver, "Read");
-		this.click_Sorticon(driver);
-		if (driver.findElements(By.xpath("//tbody//td[contains(text(),'Algebras')]")).size() != 0) {
-			String s = "Predicate updated via ticket";
+		String Designation = record.getField("Designation");
+		commFunc.put_field_data(driver, "Search", Designation);
+		if (driver.findElements(By.xpath("//tbody//td[contains(text(),'"+Designation+"')]")).size() != 0) {
+			String s = "Lexicon data cannot deleted after approval of ticket!";
+			System.err.println(s);
+			logger.log(LogStatus.FAIL, s);
+			commFunc.Data_Pass("updated_approval_lexicon", s, "FAIL", s, timed, 4, 15);
+		} else {
+			String s = "Lexicon data deleted after approval of ticket!";
 			System.out.println(s);
 			logger.log(LogStatus.INFO, s);
 			logger.log(LogStatus.PASS, s);
-			commFunc.Data_Pass("updated_approval_predicate", s, "PASS", "", timed, 1, 15);
-		} else {
-			String s = "user cannot able to update predicate";
-			System.err.println(s);
-			logger.log(LogStatus.FAIL, s);
-			//commFunc.Click(driver, By.xpath("//berd-confirmation-dialog//mat-icon[contains(text(),'close')]"));
-			commFunc.Data_Pass("updated_approval_predicate", s, "FAIL", s, timed, 4, 15);
+			commFunc.Data_Pass("updated_approval_lexicon", s, "PASS", "", timed, 1, 15);
 		}
 	
 	}
 	
 	public void validate_delete_predicate(WebDriver driver) {
-		commFunc.Explicitywait(driver, Yes_btn);
-		commFunc.Click(driver, Yes_btn);
 		commFunc.Explicitywait(driver, By.xpath("//berd-confirmation//div//p[contains(text(),'BIO_Predicates has been created and required approval to delete record')]"));
 		if (driver.findElements(By.xpath("//berd-confirmation//div//p[contains(text(),'BIO_Predicates has been created and required approval to delete record')]")).size() != 0) {
 			String s = "Connector sent for delete approval";
@@ -366,4 +421,115 @@ public class BioLexicon_ObjectPage extends BaseClass {
 			commFunc.Data_Pass("delete_approval_connector", s, "PASS","", timed, 1, 15);
 		}
   }
+	
+	public void validate_flexibility_change(WebDriver driver,long timed) {
+		commFunc.Click_btn(driver,"Yes");
+		commFunc.Click(driver, btn_ok);
+		commFunc.Explicitywait(driver, By.xpath("//mat-dialog-container//berd-flexibility-alert-dialog//div//h3[contains(text(),'You are being logged out because the Flexibility Level has been updated.')]"));
+		if(driver.findElements(By.xpath("//mat-dialog-container//berd-flexibility-alert-dialog//div//h3[contains(text(),'You are being logged out because the Flexibility Level has been updated.')]")).size()!=0) {
+			String s = "User can able to change the flexibility level successfully.";
+			System.out.println(s);
+			logger.log(LogStatus.INFO, s);
+			logger.log(LogStatus.PASS, s);
+			commFunc.Click(driver, By.xpath("//button//span[contains(text(),'Ok')]"));
+			commFunc.Data_Pass("delete_approval_connector", s, "PASS","", timed, 1, 15);
+		}
+	}
+	
+	public void validate_delete_lexicon_same_user(WebDriver driver,long timed) {
+		commFunc.Explicitywait(driver, By.xpath("//berd-confirmation-dialog//div//p[contains(text(),'Tickter Creator cannot approve the ticket')]"));
+		if(driver.findElements(By.xpath("//berd-confirmation-dialog//div//p[contains(text(),'Tickter Creator cannot approve the ticket')]")).size()!=0) {
+			String s = "Ticket creator cannot approve the ticket";
+			System.out.println(s);
+			logger.log(LogStatus.INFO, s);
+			logger.log(LogStatus.PASS, s);
+			commFunc.Click(driver, btn_ok);
+			commFunc.Data_Pass("validate_delete_lexicon_same_user", s, "PASS","", timed, 1, 15);
+			
+		}
+		else {
+			String s = "Ticket creator can approve the ticket";
+			System.err.println(s);
+			logger.log(LogStatus.FAIL, s);
+			commFunc.Click(driver, btn_ok);
+			commFunc.Data_Pass("validate_delete_lexicon_same_user", s, "FAIL", s, timed, 4, 15);
+		}
+	}
+	
+	public void validate_added_flexibility(WebDriver driver,long timed) {
+		commFunc.Explicitywait(driver, By.xpath("//berd-confirmation-dialog//div//p[contains(text(),'Data has been added Successfully')]"));
+		if(driver.findElements(By.xpath("//berd-confirmation-dialog//div//p[contains(text(),'Data has been added Successfully')]")).size()!=0) {
+			String s = "User can able to create flexibility successfully";
+			System.out.println(s);
+			logger.log(LogStatus.INFO, s);
+			logger.log(LogStatus.PASS, s);
+			commFunc.Click(driver, btn_ok);
+			commFunc.Data_Pass("validate_added_flexibility", s, "PASS","", timed, 1, 15);
+		}
+		else {
+			String s = "User cannot able to create flexibility successfully";
+			System.err.println(s);
+			logger.log(LogStatus.FAIL, s);
+			commFunc.Click(driver, btn_ok);
+			commFunc.Data_Pass("validate_added_flexibility", s, "FAIL", s, timed, 4, 15);
+		}
+	}
+	
+	public void validate_update_flexibility(WebDriver driver,long timed) {
+		commFunc.Explicitywait(driver, By.xpath("//berd-confirmation-dialog//div//p[contains(text(),'updated Successfully')]"));
+		if(driver.findElements(By.xpath("//berd-confirmation-dialog//div//p[contains(text(),'updated Successfully')]")).size()!=0) {
+			String s = "User can able to update flexibility successfully";
+			System.out.println(s);
+			logger.log(LogStatus.INFO, s);
+			logger.log(LogStatus.PASS, s);
+			commFunc.Click(driver, btn_ok);
+			commFunc.Data_Pass("validate_update_flexibility", s, "PASS","", timed, 1, 15);
+		}
+		else {
+			String s = "User cannot able to update flexibility successfully";
+			System.err.println(s);
+			logger.log(LogStatus.FAIL, s);
+			commFunc.Click(driver, btn_ok);
+			commFunc.Data_Pass("validate_update_flexibility", s, "FAIL", s, timed, 4, 15);
+		}
+	}
+	
+	public void validate_delete_flexibility(WebDriver driver,long timed) {
+		commFunc.Click_btn(driver,"Yes");
+		commFunc.Explicitywait(driver, By.xpath("//berd-confirmation-dialog//div//p[contains(text(),'Data is Deleted Successfully')]"));
+		if(driver.findElements(By.xpath("//berd-confirmation-dialog//div//p[contains(text(),'Data is Deleted Successfully')]")).size()!=0) {
+			String s = "User can able to delete flexibility successfully";
+			System.out.println(s);
+			logger.log(LogStatus.INFO, s);
+			logger.log(LogStatus.PASS, s);
+			commFunc.Click(driver, btn_ok);
+			commFunc.Data_Pass("validate_delete_flexibility", s, "PASS","", timed, 1, 15);
+		}
+		else {
+			String s = "User cannot able to delete flexibility successfully";
+			System.err.println(s);
+			logger.log(LogStatus.FAIL, s);
+			commFunc.Click(driver, btn_ok);
+			commFunc.Data_Pass("validate_delete_flexibility", s, "FAIL", s, timed, 4, 15);
+		}
+	}
+	
+	public void validate_details_flexibility(WebDriver driver,long timed) throws InterruptedException {
+		Thread.sleep(3000);
+		if(driver.findElements(By.xpath("//berd-flexibility-level-dialog//div//button[@disabled='true']//span[contains(text(),'Save')]")).size()!=0) {
+			String s = "User can able to view the flexibility details successfully";
+			System.out.println(s);
+			logger.log(LogStatus.INFO, s);
+			logger.log(LogStatus.PASS, s);
+			commFunc.Click(driver, By.xpath("//berd-flexibility-level-dialog//div//mat-icon[contains(text(),'close')]"));
+			commFunc.Data_Pass("validate_details_flexibility", s, "PASS","", timed, 1, 15);
+		}
+		else {
+			String s = "User cannot able to view the flexibility details successfully";
+			System.err.println(s);
+			logger.log(LogStatus.FAIL, s);
+			commFunc.Click(driver, By.xpath("//berd-flexibility-level-dialog//div//mat-icon[contains(text(),'close')]"));
+			commFunc.Data_Pass("validate_details_flexibility", s, "FAIL", s, timed, 4, 15);
+		}
+	}
 }

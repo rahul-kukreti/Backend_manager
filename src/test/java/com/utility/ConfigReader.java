@@ -46,5 +46,20 @@ public class ConfigReader {
 	public String getpassword_wrong() {
 		return prop.getProperty("wrong_password");
 	}
+	
+	public String get_designation() {
+		return prop.getProperty("designation");
+		
+	}
+	
+	public String get_email() {
+		return prop.getProperty("email");
+		
+	}
+	public String get_passwordn() {
+		return prop.getProperty("password");
+		
+	}
+	
 }
 
