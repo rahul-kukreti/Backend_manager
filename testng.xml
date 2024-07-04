@@ -7,19 +7,14 @@
 	</listeners>
 	<parameter name="enviroment" value="stage" />
 	<parameter name="testCaseID" value="testCaseID_01" />
-	<!--  <test name="Bio_lexicon" preserve-order="true">
+	 <test name="Backend_manager" preserve-order="true">
 		<classes>
-			<class name="com.End2End.Test_Regression.Bio_lexicon" />
+			<class name="com.End2End.Test_Regression.Backend_manager" />
 		</classes>
 	</test>
-	<test name="Coordinate_manager" preserve-order="true">
+	<test name="User_manager" preserve-order="true">
 		<classes>
-			<class name="com.End2End.Test_Regression.Coordinate_manager" />
-		</classes>
-	</test>-->
-	<test name="Upal_parameter" preserve-order="true">
-		<classes>
-			<class name="com.End2End.Test_Regression.Upal_parameter" />
+			<class name="com.End2End.Test_Regression.User_manager" />
 		</classes>
 	</test>
 </suite>
