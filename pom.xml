@@ -3,18 +3,18 @@
   <groupId>Backend_manager_BI</groupId>
   <artifactId>Backend_manager_BI</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <dependencies>
+ <dependencies>
 		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
-			<version>4.11.0</version>
+			<version>4.16.1</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.testng/testng -->
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
-			<version>7.6.1</version>
+			<version>7.7.0</version>
 			<scope>test</scope>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
@@ -39,7 +39,7 @@
 		<dependency>
 			<groupId>io.github.bonigarcia</groupId>
 			<artifactId>webdrivermanager</artifactId>
-			<version>5.4.0</version>
+			<version>5.7.0</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-gpg-plugin -->
 		<dependency>
@@ -58,6 +58,11 @@
 			<groupId>com.codoid.products</groupId>
 			<artifactId>fillo</artifactId>
 			<version>1.21</version>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.20</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.relevantcodes/extentreports -->
 		<!-- https://mvnrepository.com/artifact/com.relevantcodes/extentreports -->
@@ -92,11 +97,11 @@
 			<version>1.1</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
-		<dependency>
+		<!--<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
 			<version>4.0.0-alpha-5</version>
-		</dependency>
+		</dependency>-->
 		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-csv -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -109,12 +114,12 @@
 			<artifactId>opencsv</artifactId>
 			<version>5.7.0</version>
 		</dependency>
-		<dependency>
+		<!--<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.45</version>
 			<scope>runtime</scope>
-		</dependency>
+		</dependency>-->
 		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
 		<!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
 		<dependency>
@@ -151,8 +156,8 @@
 		<suiteXmlFile>testng.xml</suiteXmlFile>
 		<skipTest>false</skipTest>
 		<commons.io.version>2.6</commons.io.version>
-		<maven.compiler.source>1.6</maven.compiler.source>
-		<maven.compiler.target>1.6</maven.compiler.target>
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
 	</properties>
 	<build>
 		<plugins>
